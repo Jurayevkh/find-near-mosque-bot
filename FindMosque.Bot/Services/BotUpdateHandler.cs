@@ -28,20 +28,14 @@ public partial class BotUpdateHandler : IUpdateHandler
 
     public async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
     {
-        using var scope = _scopeFactory.CreateScope();
+        //using var scope = _scopeFactory.CreateScope();
 
-        _userService = scope.ServiceProvider.GetRequiredService<UserService>();
+        //_userService = scope.ServiceProvider.GetRequiredService<UserService>();
 
-
-        //if (update.Message == "/start")
-        //{
-        //    await HandlerForStart(botClient, update.Message, cancellationToken);
-        //}
-        var handler = update.Type switch
+        if (update.Message.Text == "/start")
         {
-            //UpdateType.Message msg when msg.Text == "/start" => HandlerForStart(botClient, msg, cancellationToken),
-
-        };
+            HandlerForStart(botClient,update.Message,cancellationToken);
+        }
 
     }
 }
