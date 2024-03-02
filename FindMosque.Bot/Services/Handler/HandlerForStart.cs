@@ -8,28 +8,14 @@ public partial class BotUpdateHandler
 {
     private async Task HandlerForStart(ITelegramBotClient botClient,Message message, CancellationToken cancellationToken)
     {
-        InlineKeyboardMarkup inlineKeyboard = new(new[]
+
+        ReplyKeyboardMarkup replyKeyboardMarkup = new(new[]
+            {
+                 new KeyboardButton[] { "O'zbek🇺🇿", "Русский🇷🇺" },
+            })
         {
-            // first row
-            new []
-            {
-                InlineKeyboardButton.WithCallbackData(text: "1.1", callbackData: "11"),
-                InlineKeyboardButton.WithCallbackData(text: "1.2", callbackData: "12"),
-            },
-            // second row
-            new []
-            {
-                InlineKeyboardButton.WithCallbackData(text: "2.1", callbackData: "21"),
-                InlineKeyboardButton.WithCallbackData(text: "2.2", callbackData: "22"),
-            },
-        });
-        //ReplyKeyboardMarkup replyKeyboardMarkup = new(new[]
-        //    {
-        //         new KeyboardButton[] { "O'zbek", "Rus" },
-        //    })
-        //{
-        //    ResizeKeyboard = true
-        //};
+            ResizeKeyboard = true
+        };
 
         var user = message.From;
         await botClient.SendTextMessageAsync
@@ -37,7 +23,7 @@ public partial class BotUpdateHandler
             chatId: user.Id,
             text: $"start received from {user.FirstName}",
             replyToMessageId: message.MessageId,
-            replyMarkup:inlineKeyboard,
+            replyMarkup:replyKeyboardMarkup,
             cancellationToken: cancellationToken
             ) ;
 
