@@ -1,7 +1,21 @@
-﻿namespace FindMosque.Bot.Data;
+﻿using Bot.Configuration;
+using FindMosque.Bot.Entity;
+using Microsoft.EntityFrameworkCore;
 
-public class BotDbContext
+namespace FindMosque.Bot.Data;
+
+public class BotDbContext:DbContext
 {
+    public BotDbContext(DbContextOptions<BotDbContext> options):base(options)
+    {
+            
+    }
 
+    DbSet<User> Users { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfiguration(new UserConfiguration());
+    }
 }
 
