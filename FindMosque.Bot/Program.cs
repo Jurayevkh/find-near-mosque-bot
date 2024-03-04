@@ -2,6 +2,7 @@ using FindMosque.Bot;
 using FindMosque.Bot.Data;
 using FindMosque.Bot.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Telegram.Bot;
 using Telegram.Bot.Polling;
 
@@ -16,9 +17,7 @@ using Telegram.Bot.Polling;
 
 //var app = builder.Build();
 var builder = WebApplication.CreateBuilder(args);
-
 builder.Services.AddDbContext<BotDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-
 var token = builder.Configuration.GetValue("BotToken", string.Empty);
 
 builder.Services.AddSingleton(p => new TelegramBotClient(token!));
